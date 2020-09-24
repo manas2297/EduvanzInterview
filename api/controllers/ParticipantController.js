@@ -11,6 +11,9 @@ const ParticipantController = () => {
     if (body.no_of_guest && body.no_of_guest > 2) {
       return res.status(400).json({ error: true, msg: 'Wrong Data' });
     }
+    if (body.address.length > 50) {
+      return res.status(400).json({ error: true, msg: 'Address to be less than 50 chars' });
+    }
     try {
       const participants = await Participants.create({
         name: body.name,
@@ -21,7 +24,7 @@ const ParticipantController = () => {
         no_of_guest: body.no_of_guest,
         address: body.address,
       });
-      return res.status(200).json({ msg: 'Success', participants })
+      return res.status(200).json({ msg: 'Success', participants });
     } catch (err) {
       return res.status(500).json({ msg: 'Internal Server Error' });
     }
@@ -48,7 +51,6 @@ const ParticipantController = () => {
       }
       return res.status(400).json({ msg: 'Cannot Update! User Not Found.' });
     } catch (error) {
-      console.error(error);
       return res.status(500).json({ msg: 'Internal Server error' });
     }
   };
