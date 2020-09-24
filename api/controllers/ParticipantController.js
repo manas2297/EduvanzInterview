@@ -32,7 +32,7 @@ const ParticipantController = () => {
     try {
       const response = await Participants.findAndCountAll({ limit, offset });
       const participants = getPagingData(response, page, limit);
-      return res.status(200).json({ participants });
+      return res.status(200).json({ data: participants });
     } catch (error) {
       return res.status(500).json({ msg: 'Internal server error' });
     }
