@@ -64,6 +64,7 @@ Here I have defined all the routes for the api.
 ```
 POST /api/participants
 GET /api/participants
+PUT /api/participants/:id
 ```
 with pagination support 
 ```
