@@ -60,14 +60,15 @@ Holds all the server configurations.
 
 ## Routes
 
-Here I have defined all the routes for the api. 
+Here I have defined all the routes for the api.
+```
 POST /api/participants
 GET /api/participants
-
+```
 with pagination support 
-
+```
 /api/participants?size=4&page=0
-
+```
 ## Test
 
 ```
