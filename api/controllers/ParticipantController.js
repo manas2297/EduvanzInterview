@@ -1,4 +1,5 @@
 const Participants = require('../models/Participants');
+const { getPagination, getPagingData } = require('../utils/utils');
 
 const ParticipantController = () => {
   const register = async (req, res) => {
@@ -26,8 +27,11 @@ const ParticipantController = () => {
     }
   };
   const getAll = async (req, res) => {
+    const { page, size } = req.query;
+    const { limit, offset } = getPagination(page, size);
     try {
-      const participants = await Participants.findAll();
+      const response = await Participants.findAndCountAll({ limit, offset });
+      const participants = getPagingData(response, page, limit);
       return res.status(200).json({ participants });
     } catch (error) {
       return res.status(500).json({ msg: 'Internal server error' });
