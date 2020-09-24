@@ -12,7 +12,7 @@ const Participants = sequelize.define('Participants', {
     type: Sequelize.INTEGER,
   },
   dob: {
-    type: Sequelize.DATE,
+    type: Sequelize.DATEONLY,
     allowNull: false,
   },
   profession: {
@@ -32,4 +32,8 @@ const Participants = sequelize.define('Participants', {
     type: Sequelize.STRING(60),
     allowNull: false,
   },
+}, {
+  tableName,
 });
+
+module.exports = Participants;
