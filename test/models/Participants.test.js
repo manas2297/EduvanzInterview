@@ -26,22 +26,9 @@ beforeEach(async () => {
   });
 });
 
-test('User is created correctly', async () => {
-  // check if user is created
+test('Participant is created correctly', async () => {
   expect(participant.name).toBe('manas');
   expect(participant.age).toBe(23);
-  // check if password is not send to browser
-  // expect(sendUser.password).toBeFalsy();
 
   await participant.destroy();
 });
-
-// test('User is updated correctly', async () => {
-//   await user.update({
-//     email: 'peter@mail.com',
-//   });
-
-//   expect(user.email).toBe('peter@mail.com');
-
-//   await user.destroy();
-// });

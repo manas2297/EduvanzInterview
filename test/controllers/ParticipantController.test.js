@@ -41,7 +41,6 @@ test('Participants | register', async () => {
   expect(participant.no_of_guest).toBe(res.body.participants.no_of_guest);
   expect(participant.address).toBe(res.body.participants.address);
   expect(participant.locality).toBe(res.body.participants.locality);
-  
   await participant.destroy();
 });
 
@@ -58,6 +57,7 @@ test('Participants | register', async () => {
       address: 'kormangla, India',
     })
     .expect(400);
+  expect(res.body.error).toBe('Fields Missing');
 });
 test('Participants | register', async () => {
   const res = await request(api)
@@ -89,6 +89,7 @@ test('Participants | register', async () => {
       address: 'kormangla, India',
     })
     .expect(500);
+  expect(res.body.msg).toBe('Internal Server Error');
 });
 
 

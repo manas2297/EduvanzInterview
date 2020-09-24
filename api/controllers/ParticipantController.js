@@ -8,7 +8,7 @@ const ParticipantController = () => {
     if (!body.name || !body.profession || !body.dob) {
       return res.status(400).json({ error: 'Fields Missing' });
     }
-    if (body.no_of_guest > 2) {
+    if (body.no_of_guest && body.no_of_guest > 2) {
       return res.status(400).json({ error: true, msg: 'Wrong Data' });
     }
     try {
