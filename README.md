@@ -60,7 +60,7 @@ Holds all the server configurations.
 
 ## Routes
 
-Here I have defined all your routes for the api. 
+Here I have defined all the routes for the api. 
 
 
 ## Test
