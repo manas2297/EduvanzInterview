@@ -37,9 +37,25 @@ const ParticipantController = () => {
       return res.status(500).json({ msg: 'Internal server error' });
     }
   };
+  const update = async (req, res) => {
+    const { id } = req.params;
+    try {
+      const response = await Participants.update(req.body, {
+        where: { id },
+      });
+      if (response[0] === 1) {
+        return res.status(200).json({ msg: 'Successfully Updated' });
+      }
+      return res.status(400).json({ msg: 'Cannot Update! User Not Found.' });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ msg: 'Internal Server error' });
+    }
+  };
   return {
     getAll,
     register,
+    update,
   };
 };
 
