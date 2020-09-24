@@ -76,6 +76,7 @@ test('Participants | register', async () => {
   expect(res.body.msg).toBe('Wrong Data');
 });
 test('Participants | register', async () => {
+  const addr = 'kormangla';
   const res = await request(api)
     .post('/api/participants')
     .set('Accept', /json/)
@@ -86,10 +87,24 @@ test('Participants | register', async () => {
       profession: 'test',
       locality: 'Bengaluru',
       no_of_guests: 2,
-      address: 'kormangla, India',
+      address: addr,
     })
     .expect(500);
+  const res2 = await request(api)
+    .post('/api/participants')
+    .set('Accept', /json/)
+    .send({
+      name: 'test',
+      age: 23,
+      dob: '1997-05-28',
+      profession: 'test',
+      locality: 'Bengaluru',
+      no_of_guests: 2,
+      address: addr.repeat(70),
+    })
+    .expect(400);
   expect(res.body.msg).toBe('Internal Server Error');
+  expect(res2.body.error).toBeTruthy();
 });
 
 
@@ -118,4 +133,48 @@ test('Participants | getAll', async () => {
   expect(res2.body.data).toBeTruthy();
   expect(res2.body.data.participants.length).toBe(10);
   await participant.destroy();
+});
+
+test('Participants | update', async () => {
+  // const participant = await Participants.update({
+    // name: 'manas',
+    // age: 23,
+    // dob: '1997-05-28',
+    // profession: 'Student',
+    // locality: 'Bengaluru',
+    // no_of_guest: 2,
+    // address: 'kormangla, India',
+  // }, { where: { id: 1 } });
+
+  const res = await request(api)
+    .put('/api/participants/1')
+    .set('Accept', /json/)
+    .send({
+      name: 'manas',
+      age: 23,
+      dob: '1997-05-28',
+      profession: 'Student',
+      locality: 'Bengaluru',
+      no_of_guest: 2,
+      address: 'kormangla, India',
+    })
+    .expect(200);
+  const res2 = await request(api)
+    .put('/api/participants/90')
+    .set('Accept', /json/)
+    .send({
+      name: 'manas',
+      age: 23,
+      dob: '1997-05-28',
+      profession: 'Student',
+      locality: 'Bengaluru',
+      no_of_guest: 2,
+      address: 'kormangla, India',
+    })
+    .expect(400);
+
+  expect(res.body.msg).toBeTruthy();
+  expect(res.body.msg).toBe('Successfully Updated');
+  expect(res2.body.msg).toBeTruthy();
+  expect(res2.body.msg).toBe('Cannot Update! User Not Found.');
 });
