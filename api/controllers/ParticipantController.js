@@ -11,7 +11,6 @@ const ParticipantController = () => {
       return res.status(400).json({ error: true, msg: 'Wrong Data' });
     }
     try {
-      console.log(body);
       const participants = await Participants.create({
         name: body.name,
         age: body.age,
@@ -23,12 +22,16 @@ const ParticipantController = () => {
       });
       return res.status(200).json({ msg: 'Success', participants })
     } catch (err) {
-      console.error(err);
       return res.status(500).json({ msg: 'Internal Server Error' });
     }
   };
-  const getAll = (req, res) => {
-    return res.status(200).json({ msg: 'Hello' });
+  const getAll = async (req, res) => {
+    try {
+      const participants = await Participants.findAll();
+      return res.status(200).json({ participants });
+    } catch (error) {
+      return res.status(500).json({ msg: 'Internal server error' });
+    }
   };
   return {
     getAll,
