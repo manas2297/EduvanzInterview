@@ -1,6 +1,6 @@
 const development = {
-  database: 'databasename',
-  username: 'username',
+  database: 'eduvanz',
+  username: 'root',
   password: 'password',
   host: 'localhost',
   dialect: 'mysql' || 'sqlite' || 'postgres',

@@ -89,6 +89,7 @@ const dbService = (environment, migrate) => {
     switch (environment) {
       case 'development':
         await startDev();
+        console.log("DB connected");
         break;
       case 'staging':
         await startStage();
